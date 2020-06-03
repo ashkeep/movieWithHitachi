@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>		
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+<!--	<typeAliases>-->
+<!--		<typeAlias alias="Actor" type="com.lk.movie.entity.Actor"/>-->
+<!--		<typeAlias alias="TMovieHall" type="com.lk.movie.entity.TMovieHall"/>-->
+<!--		<typeAlias alias="TAdmin" type="com.lk.movie.entity.TAdmin"/>-->
+<!--		<typeAlias alias="TCinema" type="com.lk.movie.entity.TCinema"/>-->
+<!--		<typeAlias alias="TCinemaAdmin" type="com.lk.movie.entity.TCinemaAdmin"/>-->
+<!--		<typeAlias alias="TCity" type="com.cinema.entity.TCity"/>-->
+<!--		<typeAlias alias="TDistrict" type="com.cinema.entity.TDistrict"/>-->
+<!--		<typeAlias alias="TMovie" type="com.cinema.entity.TMovie"/>-->
+<!--		<typeAlias alias="ToutTicket" type="com.cinema.entity.ToutTicket"/>-->
+<!--		<typeAlias alias="TSeat" type="com.cinema.entity.TSeat"/>-->
+<!--		<typeAlias alias="TUser" type="com.cinema.entity.TUser"/>-->
+<!--		<typeAlias alias="TGrally" type="com.cinema.entity.TGrally"/>-->
+<!--		<typeAlias alias="Comments" type="com.cinema.entity.Comments"/>-->
+<!--		<typeAlias alias="RondaSeat" type="com.cinema.entity.TRondaSeat"/>-->
+<!--		<typeAlias alias="RondaInfo" type="com.cinema.dto.RondaInfo"/>-->
+<!--		<typeAlias alias="RondaSeatInfo" type="com.cinema.dto.RondaSeatInfo"/>-->
+<!--	</typeAliases>-->
+<!--	-->
+<!--	<mappers>-->
+<!--		<mapper resource="com/lk/movie/MovieDaoMapper.xml"/>-->
+<!--		<mapper resource="com/cinema/batis/UserDaoMapper.xml"/>-->
+<!--		<mapper resource="com/cinema/batis/SelectDaoMapper.xml"/>-->
+<!--		<mapper resource="com/cinema/batis/RondaMapper.xml"/>-->
+<!--	</mappers>-->
+</configuration>

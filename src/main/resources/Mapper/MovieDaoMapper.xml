@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lk.movie.mapper.MovieDaoMapper">
+	
+	<select id="getMovies" parameterType="map" resultType="TMovie">
+	   <![CDATA[ 
+	      select rownum,mid,mname,length,area,type,director,actor,score,details,sealnum,bgDate,wantosee from TMOVIE where state = #{state} and rownum <=100 order by #{sorting}
+	   ]]>
+		
+	</select>
+	
+	<select id="getMovies2" parameterType="map" resultType="TMovie">
+	   <![CDATA[ 
+	     select rownum,A.* from (select mid,mname,length,area,type,director,actor,score,details,sealnum,bgDate,wantosee from TMOVIE where state =#{state} and rownum <= 100 order by #{sorting})A
+	   ]]>
+		
+	</select>
+	
+	<select id="getGrally" resultType="TGrally">
+		select * from GRALLY
+	</select>
+	<select id="getMoviePic" parameterType="String" resultType="TMovie">
+		select cover from TMOVIE where mid = #{mid}
+	</select>
+</mapper>

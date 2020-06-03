@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lk.movie.mapper.SelectDaoMapper">
+
+	<select id="findMovie" parameterType="String" resultType="TMovie">
+		 select state,mname,length,area,type,bgDate,wantosee,sealnum,score,details from Tmovie where mid=#{mid}
+	</select>
+    <select id="findComments" parameterType="String" resultType="Comments">
+        select * from COMMENTS where mid=#{mid}
+    </select>
+    <select id="findDistrict" resultType="TDistrict">
+        select * from TDistrict
+    </select>
+    <select id="findCinemas" parameterType="String" resultType="TCinema">
+        select * from TCinema  where dno = #{dno}
+    </select>
+    <select id="findAllCinemas"  resultType="TCinema">
+        select * from TCinema
+    </select>
+       
+    <select id="findRondas"  resultType="RondaInfo">
+        select TMovieHall.HNO,TMovieHall.allrow,TMovieHall.allcol,TRONDA.PRICE,TRONDA.LANGUAGE,TRONDA.BEGINTIME,TRONDA.ENDTIME,TRONDA.AID From TRONDA, TMovieHall
+        where TMovieHall.HNO = TRONDA.HNO AND TMovieHall.cid =#{cid} AND TRONDA.MID=#{mid} and TRONDA.BEGINTIME>#{now}
+    </select>
+    
+
+    <select id="commentState" parameterType="String" resultType="Comments">
+        select uname from COMMENTS where mid=#{mid} and uname=#{uname}
+    </select>
+    <select id="getSelectUserPic" parameterType="String" resultType="TUser">
+        select userpic From TUSER where uname=#{uname}
+    </select>
+    <insert id="addComment" parameterType="ToutTicket">
+        insert into COMMENTS values(#{uname},#{mid},#{score},#{essay},#{time})
+    </insert>
+</mapper>

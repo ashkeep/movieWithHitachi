@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lk.movie.mapper.RondaMapper">
+
+   <select id="getRondaSeatList" resultType="RondaSeatInfo">  		
+  		select s.state,s.colno,s.rowno,s.hno,s.seatno, rs.state sellState,rs.rid,rs.rsid  from trondaseat rs,tseat s
+          where s.seatno = rs.seatno and rs.rid=#{rid} order by rsid
+   </select>
+   
+   <select id="getRondaInfo" resultType="RondaInfo">
+   		select c.dno,c.cid,c.cname,c.address, h.allcol,h.hno, h.allrow,m.length,m.mname,m.mid,m.area,
+       	m.type,m.director,m.score, m.state,m.details, m.bgdate,m.sealnum,m.wantosee,
+       	m.actor,r.begintime,r.language,r.price,r.endtime,r.aid
+  		from tronda r, tmovie m,tmoviehall h,tcinema c
+ 		where m.mid = r.mid  and h.hno = r.hno   and c.cid = h.cid and r.aid=#{rid}
+   </select>
+   
+   <update id="orderTicket">
+   		update trondaseat set state=3,selecttime=sysdate where rid=#{rid} and seatno in (
+          select seatno from (select rownum rn,tb.* from (select * from trondaseat where rid=#{rid} order by rsid)tb) where rn in  
+          <foreach item="seat" index="index" collection="seatSZ" open="(" separator="," close=")">
+			#{seat}
+		  </foreach>
+		)
+        <!-- 
+            update trondaseat set state=2 where rid=7 and seatno in (
+         select seatno from (select rownum rn,tb.* from (select * from trondaseat where rid=7)tb) where rn in (1,3,5)  )
+         -->        
+   </update>
+   
+   <select id="checkInflictSeat" resultType="String">
+       select seatno from (select rownum rn,tb.* from (select * from trondaseat where rid=#{rid} order by rsid)tb) where rn in
+        <foreach item="seat" index="index" collection="seatSZ" open="(" separator="," close=")">
+			#{seat}
+		  </foreach>
+        and state in (2,3)   
+   </select>
+   
+   <update id="recoverSeatState">
+   		update trondaseat set state=1 where state=3 and rsid in (
+              select  rsid from trondaseat where ROUND(TO_NUMBER(sysdate-selecttime) * 24*60*60) > #{spaceTime} )
+   </update>
+   
+   <update id="payTicket">
+      update trondaseat set state=2,selecttime=sysdate where state=3 and rid=#{rid} and seatno in (
+          select seatno from (select rownum rn,tb.* from (select * from trondaseat where rid=#{rid} order by rsid)tb) where rn in  
+          <foreach item="seat" index="index" collection="seatSZ" open="(" separator="," close=")">
+			#{seat}
+		  </foreach>
+		)
+   </update>
+   
+   <insert id="addPay" parameterType="ToutTicket">
+     insert into ToutTicket values((select nvl(max(xho),0)+1 from toutticket),
+                          #{uname},#{rid},#{seatno},#{realpay},#{payTime},#{state})
+   </insert>
+
+</mapper>
