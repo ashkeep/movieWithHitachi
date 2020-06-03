@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import redis.clients.jedis.Jedis;
 
+import java.rmi.Remote;
+
 
 /**
  * @author lk56054
@@ -126,6 +128,7 @@ public class UserController {
 
                 }
                 //用完关闭
+//            Remote URL test failed: cannot spawn git: Exec format error
                 jedis.close();
 
 
